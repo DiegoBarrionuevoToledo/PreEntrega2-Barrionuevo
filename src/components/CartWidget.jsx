@@ -8,7 +8,7 @@ const CartWidget = () => {
 return (
     <div>
         
-       <Button colorScheme='blue'>🛒</Button>
+       <Button fontSize={'xx-large'} colorScheme='black'>🛒</Button>
        <span>10</span>
    </div>
   )

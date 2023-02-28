@@ -1,0 +1,39 @@
+.Titulo {
+    text-decoration: solid;
+    color:
+        antiquewhite;
+}
+
+.numeroCarrito {
+    color: antiquewhite;
+}
+
+.navBar {
+    margin-top: 12px;
+    background-color: black;
+}
+
+;
+
+.css-k008qs {
+    display: flex;
+}
+
+.ItemList {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cardFooter{
+
+    justify-content: center;
+}
+.counter{
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.counterLabel{
+    font-size: large;
+    font-weight: bold;
+}

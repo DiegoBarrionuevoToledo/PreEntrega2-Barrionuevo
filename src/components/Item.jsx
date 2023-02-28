@@ -1,14 +1,17 @@
 import React from 'react'
-import { Card, CardHeader, CardBody, CardFooter, Heading, Image, Stack, Text, Divider, ButtonGroup, Button } from '@chakra-ui/react'
+import { Card, CardHeader, CardBody, CardFooter, Heading, Image, Stack, Text, Divider, ButtonGroup, Button, Center, Container, Flex } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 
-const Item = ({key, id, name, precio, año, imagen} ) => {
+
+const Item = ({key, id, name, precio, año, imagen,stock} ) => {
   
   return (
-    <div key = {key}>
+   
 
-<Card maxW='sm'>
-  <CardBody>
+    <div  key = {key}>
+ <Container>
+<Card maxW='sm' h="600px">
+  <CardBody >
     <Image
       src={imagen}
       alt='Green double couch with wooden legs'
@@ -20,10 +23,12 @@ const Item = ({key, id, name, precio, año, imagen} ) => {
       <Text color='blue.600' fontSize='2xl'>
         ${precio}
       </Text>
+     
+      
     </Stack>
   </CardBody>
   <Divider />
-  <CardFooter>
+  <CardFooter className='cardFooter'>
     
     <ButtonGroup spacing='2'>
       <Link to={`/producto/${ id }`}>
@@ -31,12 +36,12 @@ const Item = ({key, id, name, precio, año, imagen} ) => {
         Ver mas
       </Button>
       </Link>
-      <Button variant='ghost' colorScheme='blue'>
-        Agregar al carrito
-      </Button>
+     
     </ButtonGroup>
   </CardFooter>
 </Card>
+</Container>
+
 
 
 
