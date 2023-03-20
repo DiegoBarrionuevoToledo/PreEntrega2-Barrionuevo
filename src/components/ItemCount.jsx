@@ -8,8 +8,8 @@ const [counter, setCounter] = useState(parseInt(initial));
 
 useEffect(() => {
     // setCounter(parseInt(initial));
-console.log("counter", counter)
-console.log("llamada a una api");
+// console.log("counter", counter)
+// console.log("llamada a una api");
 }, [counter]);
 
 const sumar = () => {
@@ -28,7 +28,7 @@ const restar = () =>{
         <Button variant='solid' colorScheme='blue' isDisabled={counter >= stock } onClick={sumar}>+</Button>
         <div>
          <Button variant='solid' colorScheme='blue' isDisabled={stock <= 0} onClick={()=> onAdd(counter) } >Agregar al carrito</Button>
-        </div>variant='solid' colorScheme='blue' 
+        </div>
         
         
     </div>

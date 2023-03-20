@@ -1,21 +1,37 @@
 import { Container } from '@chakra-ui/react';
-import React from 'react'
+import React,  { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import ItemDetail from './ItemDetail';
+import {collection, getDocs, getFirestore} from 'firebase/firestore'
+
 
 const ItemDetailContainer = () => {
+
+  const [datos, setDatos] = useState([]) 
+
+  useEffect(() => {
+    const db = getFirestore();
+    const itemCollection = collection(db,"Discos de Rap");
+    getDocs(itemCollection).then((snapshot) =>{
+      const doc = snapshot.docs.map((doc) => ({...doc.data(), id:doc.id}) );
+
+      console.log("doc", doc)
+      setDatos(doc)
+    })
+   },[] )
+
  
- const datos = [
+//  const datos = [
 
   
-  {id: 1, nombre: "Wu-tang Clan / Enter the Wu-tang (36 chambers)", precio: 25000, año: 1993, imagen:"https://falabella.scene7.com/is/image/Falabella/gsc_113068977_521205_1?wid=800&hei=800&qlt=70",descripcion:"Es el primer álbum de estudio del grupo de hip hop estadounidense Wu-Tang Clan, publicado el 9 de noviembre de 1993 por Loud Records, y distribuido a través de RCA Records.",stock:10 },
-  {id: 2, nombre: "Nas / Illmatic", precio: 30000, año: 1994, imagen:"https://falabella.scene7.com/is/image/Falabella/gsc_113604730_693181_1?wid=1500&hei=1500&qlt=70",descripcion:"Es el álbum de debut del rapero estadounidense Nas, lanzado el 19 de abril de 1994 por Columbia Records. Después de firmar con el sello con la ayuda de MC Serch, Nas grabó el álbum en 1992-1993 en Chung King Studios, Battery Studios, y Unique Recording Studios en Nueva York. Su producción estuvo a cargo de Nas, Large Professor, Pete Rock, Q-Tip, L.E.S., y DJ Premier." ,stock:7 },
-  {id: 3, nombre: "Run DMC / Run DMC", precio: 55500, año: 1984, imagen:"https://i.scdn.co/image/ab67616d0000b2730c653d22500b21d83c6e2b82",descripcion:"Considerados el primer grupo rap hardcore, representativo del East Coast Rap, entre 1983 y 1987 establecieron el estilo para la próxima década: en ese proceso, abrieron la puerta tanto al rap politizado de Public Enemy y Boogie Down Productions como a las machadas gangsta de N.W.A (exponentes del West Coast Rap)",stock:2 },
-  {id: 4, nombre: "Dr. Dre / The Chronic", precio: 1000, año: 1992, imagen:"https://upload.wikimedia.org/wikipedia/en/1/19/Dr.DreTheChronic.jpg",descripcion:"Es el álbum debut como solista del rapero estadounidense, Dr. Dre, publicado el 15 de diciembre de 1992 a través de la discográfica Death Row Records y distribuido por Priority Records. Las sesiones de grabación del álbum tuvieron lugar en junio de 1992 en los estudios de Death Row en Los Ángeles, California y en Bernie Grundman Mastering en Hollywood, California. ",stock:60 },
-  {id: 5, nombre: "Kendrick Lamar / Good Kid, M.A.A.D City ", precio: 10000, año: 2015, imagen:"https://i.scdn.co/image/ab67616d00001e02d58e537cea05c2156792c53d",descripcion:"Es el segundo álbum de estudio del rapero estadounidense Kendrick Lamar. El álbum fue lanzado el 22 de octubre del 2012, por Aftermath Entertainment, y estuvo distribuido por Interscope Records.",stock:8 },
-  {id: 6, nombre: "Joey Badass / B4.Da.$$ ", precio: 45000, año: 2012, imagen:"https://upload.wikimedia.org/wikipedia/en/f/ff/Joey_Badass_B4.Da.%24%24.jpg",descripcion:"Pronunciado Before Da Money es el álbum de estudio debut del rapero estadounidense Joey Badass . Fue lanzado el 20 de enero de 2015, su vigésimo cumpleaños, por Cinematic Music Group y Relentless Records . El álbum fue lanzado en América del Norte y el Reino Unido, además de estar disponible para descarga digital en iTunes . ",stock:20 },
+//   {id: 1, nombre: "Wu-tang Clan / Enter the Wu-tang (36 chambers)", precio: 25000, año: 1993, imagen:"https://falabella.scene7.com/is/image/Falabella/gsc_113068977_521205_1?wid=800&hei=800&qlt=70",descripcion:"Es el primer álbum de estudio del grupo de hip hop estadounidense Wu-Tang Clan, publicado el 9 de noviembre de 1993 por Loud Records, y distribuido a través de RCA Records.",stock:10 },
+//   {id: 2, nombre: "Nas / Illmatic", precio: 30000, año: 1994, imagen:"https://falabella.scene7.com/is/image/Falabella/gsc_113604730_693181_1?wid=1500&hei=1500&qlt=70",descripcion:"Es el álbum de debut del rapero estadounidense Nas, lanzado el 19 de abril de 1994 por Columbia Records. Después de firmar con el sello con la ayuda de MC Serch, Nas grabó el álbum en 1992-1993 en Chung King Studios, Battery Studios, y Unique Recording Studios en Nueva York. Su producción estuvo a cargo de Nas, Large Professor, Pete Rock, Q-Tip, L.E.S., y DJ Premier." ,stock:7 },
+//   {id: 3, nombre: "Run DMC / Run DMC", precio: 55500, año: 1984, imagen:"https://i.scdn.co/image/ab67616d0000b2730c653d22500b21d83c6e2b82",descripcion:"Considerados el primer grupo rap hardcore, representativo del East Coast Rap, entre 1983 y 1987 establecieron el estilo para la próxima década: en ese proceso, abrieron la puerta tanto al rap politizado de Public Enemy y Boogie Down Productions como a las machadas gangsta de N.W.A (exponentes del West Coast Rap)",stock:2 },
+//   {id: 4, nombre: "Dr. Dre / The Chronic", precio: 1000, año: 1992, imagen:"https://upload.wikimedia.org/wikipedia/en/1/19/Dr.DreTheChronic.jpg",descripcion:"Es el álbum debut como solista del rapero estadounidense, Dr. Dre, publicado el 15 de diciembre de 1992 a través de la discográfica Death Row Records y distribuido por Priority Records. Las sesiones de grabación del álbum tuvieron lugar en junio de 1992 en los estudios de Death Row en Los Ángeles, California y en Bernie Grundman Mastering en Hollywood, California. ",stock:60 },
+//   {id: 5, nombre: "Kendrick Lamar / Good Kid, M.A.A.D City ", precio: 10000, año: 2015, imagen:"https://i.scdn.co/image/ab67616d00001e02d58e537cea05c2156792c53d",descripcion:"Es el segundo álbum de estudio del rapero estadounidense Kendrick Lamar. El álbum fue lanzado el 22 de octubre del 2012, por Aftermath Entertainment, y estuvo distribuido por Interscope Records.",stock:8 },
+//   {id: 6, nombre: "Joey Badass / B4.Da.$$ ", precio: 45000, año: 2012, imagen:"https://upload.wikimedia.org/wikipedia/en/f/ff/Joey_Badass_B4.Da.%24%24.jpg",descripcion:"Pronunciado Before Da Money es el álbum de estudio debut del rapero estadounidense Joey Badass . Fue lanzado el 20 de enero de 2015, su vigésimo cumpleaños, por Cinematic Music Group y Relentless Records . El álbum fue lanzado en América del Norte y el Reino Unido, además de estar disponible para descarga digital en iTunes . ",stock:20 },
     
-    ];
+//     ];
  
     return (
     <div>

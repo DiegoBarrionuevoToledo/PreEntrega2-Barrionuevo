@@ -1,28 +1,36 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Card, CardHeader, CardBody, CardFooter, Heading, Image, Stack, Text, Divider, ButtonGroup, Button, Center, Flex, SimpleGrid, Container,Box } from '@chakra-ui/react';
 import ItemCount from './ItemCount';
 import { useState } from 'react';
+import { CartContext } from '../Context/CartContex';
+ 
 
 
-const ItemDetail = ({productos}) => {
+ export const ItemDetail = ({productos}) => {
 
     const [goToCart, setGoToCart] = useState(false);
     const {idParams} = useParams();
-  
+    const {addProduct} = useContext(CartContext);
   const idFilter = productos.filter((producto) =>
   producto.id == idParams
 );
 
-const onAdd = (quantity) => {
- setGoToCart(true)
-}
+
+
+
 
  return (
   <>
 
   {idFilter.map((element)=>{
+    const onAdd = (quantity) => {
+      setGoToCart(true)
+      addProduct(element, quantity)
+     }
+
   return (<div key= {element.id}>
+
 
 <div>
 
@@ -62,8 +70,9 @@ const onAdd = (quantity) => {
 
         {
           goToCart
-          ? <Link to = '/cart'><Button variant='solid' colorScheme='blue'   > Terminar compra</Button></Link> :
+          ? <div><Link to = '/cart'><Button variant='solid' colorScheme='blue'> Terminar compra</Button></Link><Link to = '/'><Button variant='solid' colorScheme='blue'> Seguir Comprando</Button></Link></div>  :
           <ItemCount initial={1} stock={10} onAdd={onAdd} />
+        
         }
   
         

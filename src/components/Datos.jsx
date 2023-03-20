@@ -1,8 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
+import {collection, getDocs, getFirestore} from 'firebase/firestore'
 
 const Datos = () => {
- 
+ useEffect(() => {
+  const db = getFirestore();
+  const itemCollection = collection(db,"Discos de Rap");
+  getDocs(itemCollection).then((snapshot) =>{
+    const doc = snapshot.docs.map((doc) => doc.data());
+    console.log("doc", doc)
+  })
+ },[] )
 
 const datos = [
 
@@ -62,4 +70,4 @@ const datos = [
       );
     };
     
-    export default App
+    export default Datos

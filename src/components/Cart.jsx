@@ -1,46 +1,38 @@
-import React from 'react'
-import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  FormHelperText,
-  Input,NumberInput, NumberIncrementStepper, NumberInputField, NumberDecrementStepper, NumberInputStepper, Box
-} from '@chakra-ui/react'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import ItemCart from './ItemCart';
+import { CartContext } from '../Context/CartContex';
+import Form from './Form';
 
 const Cart = () => {
+  //const [cart, setCart] = useContext(CartContext);
+  const { cart, setCart, totalPrice} = useContext(CartContext)
+  console.log(cart,"cart")
+  
+if (cart.length === 0) {
+return(
+<>
+<p>Agrega elementos al carrito</p>
+<Link to = "/">Ir a Compras</Link>
+</>
+);
+}
+
+
+
+
+
   return (
-
-
-    <div>
-      <Box className='formulario' p={10} w="300px" h="100" >
-<FormControl  isRequired>
-  <FormLabel>First name</FormLabel>
-  <Input placeholder='First name' />
-</FormControl>
-<FormControl>
-  <FormLabel>Email address</FormLabel>
-  <Input type='email' />
-  <FormHelperText>We'll never share your email.</FormHelperText>
-</FormControl>
-<FormControl isRequired>
-  <FormLabel>Dirección</FormLabel>
-  <Input placeholder='Dirección' />
-</FormControl>
-<FormControl>
-  <FormLabel>Amount</FormLabel>
-  <NumberInput max={50} min={10}>
-    <NumberInputField />
-    <NumberInputStepper>
-      <NumberIncrementStepper />
-      <NumberDecrementStepper />
-    </NumberInputStepper>
-  </NumberInput>
-</FormControl>
-</Box>
-    </div>
-
-
-
+    <>
+      {
+         cart.map(producto => <ItemCart key={producto.id} producto= {producto}/>)
+      }
+      <Form totalPrice={totalPrice()} />
+<p>
+  total: {totalPrice()}
+</p>
+    </>
   )
 }
 

@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Card, CardHeader, CardBody, CardFooter, Heading, Image, Stack, Text, Divider, ButtonGroup, Button, Center, Container, Flex } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 
 
+
 const Item = ({key, id, name, precio, año, imagen,stock} ) => {
-  
-  return (
+
+ 
+ return (
    
 
     <div  key = {key}>
@@ -33,7 +35,7 @@ const Item = ({key, id, name, precio, año, imagen,stock} ) => {
     <ButtonGroup spacing='2'>
       <Link to={`/producto/${ id }`}>
       <Button variant='solid' colorScheme='blue'>
-        Ver mas
+        Detalles
       </Button>
       </Link>
      
